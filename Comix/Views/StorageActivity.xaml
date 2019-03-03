@@ -1,0 +1,63 @@
+﻿<paging:Activity
+    x:Class="Comix.Views.StorageActivity"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Comix.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModels:StorageFolderViewModel}"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:viewModels="using:Comix.ViewModels"
+    xmlns:storage="using:Windows.Storage"
+    xmlns:controls1="using:Comix.Controls"
+    xmlns:paging="using:Bug10.Paging"
+    xmlns:icon="using:Bug10.Icon">
+
+    <paging:Activity.DataContext>
+        <viewModels:StorageViewModel/>
+    </paging:Activity.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Name="TitleBar_Container" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Button 
+                    Click="GobackClick"
+                    IsEnabled="{x:Bind ItemList_Frame.CanGoBack, Mode=OneWay}">
+                    <SymbolIcon Symbol="Back"/>
+                </Button>
+                <Button 
+                    Click="{x:Bind ItemList_Frame.GoForward}"
+                    IsEnabled="{x:Bind ItemList_Frame.CanGoForward, Mode=OneWay}">
+                    <SymbolIcon Symbol="Forward"/>
+                </Button>
+                <Button 
+                    Click="GoupClick">
+                    <SymbolIcon Symbol="Up"/>
+                </Button>
+            </StackPanel>
+            <Grid Grid.Column="1">
+                <AutoSuggestBox/>
+            </Grid>
+        </Grid>
+        <Grid Name="TreeView_Container" Grid.Row="1" Grid.Column="0">
+            <controls:TreeView></controls:TreeView>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1" Name="ItemList_Container">
+            <Frame Name="ItemList_Frame"/>
+        </Grid>
+    </Grid>
+</paging:Activity>
